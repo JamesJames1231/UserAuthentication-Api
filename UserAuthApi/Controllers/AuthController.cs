@@ -7,9 +7,11 @@ namespace UserAuthApi.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost(Name = "UserAuth")]
-        public string Post()
+        public bool Post()
         {
-            return "heheh";
+            AuthMessage authMess = new AuthMessage();
+            bool response = authMess.CheckLogin("gdes", "test");
+            return response; ;
         }
     }
 }
