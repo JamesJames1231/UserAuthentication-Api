@@ -3,16 +3,16 @@
 namespace UserAuthApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("LoginRequest")]
     public class AuthController : ControllerBase
     {
-        [HttpPost(Name = "UserAuth")]
+        [HttpPost(Name = "LoginRequest")]
         public string Post([FromBody] string userpass)
         {
             //Accepting string passwords over HTTPS appears to be the industry standard, which is good as it means I do not have to encrypt in every app I build
-            string[] words = userpass.Split('@');
-            string username = words[0];
-            string password = words[1];
+            string[] words = userpass.Split(':');
+            string username = words[0].Trim();
+            string password = words[1].Trim();
             
             //Calls my auth function
             AuthMessage authMess = new AuthMessage();
