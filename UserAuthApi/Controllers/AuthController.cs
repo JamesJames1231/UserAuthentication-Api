@@ -7,12 +7,20 @@ namespace UserAuthApi.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost(Name = "UserAuth")]
-        public bool Post([FromBody] string username, [FromBody] string password)
+        public string Post([FromBody] string userpass)
         {
             //Accepting string passwords over HTTPS appears to be the industry standard, which is good as it means I do not have to encrypt in every app I build
+            string username = "";
+            string password = "";
+
+            string[] words = userpass.Split('@');
+            username = words[0];
+            password = words[1];
+            
             //Calls my auth function
             AuthMessage authMess = new AuthMessage();
-            bool response = authMess.CheckLogin(username, password);
+            string response = authMess.CheckLogin(username, password);
+
             return response;
         }
     }

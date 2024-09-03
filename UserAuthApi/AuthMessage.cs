@@ -1,15 +1,27 @@
-﻿namespace UserAuthApi
+﻿using System.Text.Json;
+using Microsoft.Data.Sqlite;
+
+namespace UserAuthApi
 {
     public class AuthMessage
     {
-        string u = "test";
-        string p = "test";
-        public bool CheckLogin(string username, string password)
+        string DbPath = "users.db";
+        public string CheckLogin(string username, string password)
         {
-            if (u == username && p == password) {
-                return true;
+            var conn = new SqliteConnection($"Data Source ={DbPath}");
+            conn.OpenAsync();
+
+            using var cmd = new SqliteCommand("CREATE DATABASE users;");
+            //Checking to ensure a blank string hasn't appeared
+            if (username != "" && password != "") {
+                
+                 
+                return "Success";
             }
-            return false;
-        }   
+            else
+            {
+                return "Please Provide a Usernmae and a Password.";
+            }
+        }
     }
 }
