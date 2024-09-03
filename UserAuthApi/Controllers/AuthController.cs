@@ -10,12 +10,9 @@ namespace UserAuthApi.Controllers
         public string Post([FromBody] string userpass)
         {
             //Accepting string passwords over HTTPS appears to be the industry standard, which is good as it means I do not have to encrypt in every app I build
-            string username = "";
-            string password = "";
-
             string[] words = userpass.Split('@');
-            username = words[0];
-            password = words[1];
+            string username = words[0];
+            string password = words[1];
             
             //Calls my auth function
             AuthMessage authMess = new AuthMessage();
